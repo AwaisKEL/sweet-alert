@@ -56,6 +56,7 @@ class Toaster
         $this->config = [
             'title' => '',
             'text' => '',
+            'loadLater' => false,
             'timer' => config('sweetalert.timer'),
             'background' => config('sweetalert.background'),
             'width' => config('sweetalert.width'),
@@ -339,7 +340,7 @@ class Toaster
             $this->config['position'] = config('sweetalert.toast_position');
         }
         $this->config['showConfirmButton'] = false;
-        unset($this->config['width'], $this->config['padding']);
+        unset($this->config['width'], $this->config['padding'], $this->config['loadLater'], $this->config['heightAuto']);
 
         $this->flash();
         return $this;
@@ -660,6 +661,19 @@ class Toaster
     public function reverseButtons()
     {
         $this->config['reverseButtons'] = true;
+
+        $this->flash();
+        return $this;
+    }
+
+    /**
+     * Load the alert later (after intercept 403 errors)
+     *
+     * @author AwaisKEL <https://github.com/AwaisKEL>
+     */
+    public function loadLater()
+    {
+        $this->config['loadLater'] = true;
 
         $this->flash();
         return $this;
