@@ -37,14 +37,15 @@
             });
 
             @if (Session::has('alert.config'))
-
-                @if(json_decode(session('alert.config'))->loadLater) 
+                @php
+                    $config = json_decode(session('alert.config'));
+                @endphp
+                @if(isset($config->loadLater) && $config->loadLater) 
                     document.addEventListener('DOMContentLoaded', function() {
                         Swal.fire({!! Session::pull('alert.config') !!});
                     });
                 @else
                     Swal.fire({!! Session::pull('alert.config') !!});
-
                 @endif
             @endif
         </script>
